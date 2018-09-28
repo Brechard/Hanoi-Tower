@@ -5,6 +5,7 @@ statesString = ["b1s1", "b1s2", "b1s3", "s2b2", "s3b3", "b3s2", "b2s3", "b3s3", 
 obeyProb = 0.9
 moves = ["s1","s2","s3", "b1", "b2","b3"]
 V = {}
+pi = {}
 GAMMA = 0.9
 SMALL_ERROR = 1e-3
 
@@ -52,6 +53,7 @@ def calculate_best_action_values(state):
 def value_iteration():
 	for state in states:
 		V[state.name] = 0
+		pi[state.name] = ""
 	delta = 1
 	while delta > SMALL_ERROR:
 		delta = 0
@@ -61,8 +63,9 @@ def value_iteration():
 				delta = abs(new_best_value - V[state.name])
 
 			V[state.name] = new_best_value
+			pi[state.name] = new_best_action
 	for key, value in V.items():
-		print("State " +key+ " has a value: " +str(value))
+		print("State " +key+ " policy is: " +pi[key]+ " with a value: " +str(value))
 	# print(V)
 
 def initialize_random_policy():
