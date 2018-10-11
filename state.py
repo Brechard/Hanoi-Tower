@@ -28,6 +28,7 @@ class State():
 	# Action 1 to 3 is moving the small to the pin of the number
 	# Action 3 to 6 is moving the big to the pin of the number - 3
 	def check_move(self, action):
+
 		newState = ""
 		if action[0] == "s": # If we are moving the small disk
 			if action[1] == self.b: # And the pin where it is going the big one is already there
@@ -67,9 +68,9 @@ class State():
 
 		# Get the error move
 		if action[0] == "s":
-			errorMove = "s" + str([pin for pin in self.pins if pin != self.s and pin != int(action[1])][0])
+			errorMove = "s" + str([pin for pin in self.pins if pin != int(self.s) and pin != int(action[1])][0])
 		else:
-			errorMove = "b" + str([pin for pin in self.pins if pin != self.b and pin != int(action[1])][0])
+			errorMove = "b" + str([pin for pin in self.pins if pin != int(self.b) and pin != int(action[1])][0])
 		reward, newState = self.check_move(errorMove)
 		possibleMoves.append((1 - self.obeyProb, reward, newState))
 		return possibleMoves
